@@ -1,0 +1,33 @@
+﻿# Node dependencies
+node_modules/
+frontend/node_modules/
+
+# Python virtual environment & cache
+venv/
+.venv/
+backend/venv/
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*.class
+
+# Local database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+.env
+.env.local
+frontend/.env
+frontend/.env.local
+
+# Build output
+dist/
+frontend/dist/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

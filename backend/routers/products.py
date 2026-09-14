@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database import get_db
-from models import Product
+from models import Product, Transaction
 from schemas import ProductCreate, ProductResponse
 
 router = APIRouter(
@@ -116,6 +116,11 @@ def delete_product(product_id: int, db: Session = Depends(get_db)):
             status_code=404,
             detail="Product not found"
         )
+
+    # Delete related transactions first to avoid FK constraint errors
+    db.query(Transaction).filter(
+        Transaction.product_id == product_id
+    ).delete(synchronize_session=False)
 
     db.delete(product)
     db.commit()

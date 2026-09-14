@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from database import Base
 
@@ -23,7 +23,7 @@ class Transaction(Base):
     __tablename__ = "transactions"
 
     id = Column(Integer, primary_key=True, index=True)
-    product_id = Column(Integer, nullable=False)
+    product_id = Column(Integer, ForeignKey("products.id", ondelete="CASCADE"), nullable=False)
     type = Column(String, nullable=False)
     quantity = Column(Integer, nullable=False)
     previous_stock = Column(Integer, nullable=False)
@@ -31,6 +31,8 @@ class Transaction(Base):
     reason = Column(String, default="")
     notes = Column(String, default="")
     created_at = Column(DateTime, server_default=func.now())
+
+
 class User(Base):
     __tablename__ = "users"
 
